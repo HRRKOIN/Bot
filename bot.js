@@ -6,10 +6,17 @@ const bot = new TelegramBot(token, { polling: true });
 // Handle /start 
 bot.onText(/\/start/, (msg) => {
   const chatId = msg.chat.id;
+  let reffralId = msg.text.split(' ');
+  let url = ''
+  if(reffralId.length > 1) {
+    url = `https://webapplication-steel-beta.vercel.app/?search=${reffralId[1]}`
+  } else {
+    url = `https://webapplication-steel-beta.vercel.app/`
+  }
   bot.sendMessage(chatId, 'Welcome! Click the button below to open the web app.', {
     reply_markup: {
       inline_keyboard: [[
-        { text: 'Open Web App', web_app: { url: webAppUrl } }
+        { text: 'Open Web App', web_app: { url: url } }
       ]]
     }
   });
