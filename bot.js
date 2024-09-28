@@ -9,9 +9,9 @@ bot.onText(/\/start/, (msg) => {
   let reffralId = msg.text.split(' ');
   let url = ''
   if(reffralId.length > 1) {
-    url = `https://webapplication-steel-beta.vercel.app/?search=${reffralId[1]}`
+    url = `https://bot.linkingjobs.in/?search=${reffralId[1]}`
   } else {
-    url = `https://webapplication-steel-beta.vercel.app/`
+    url = `https://bot.linkingjobs.in/`
   }
   bot.sendMessage(chatId, 'Welcome! Click the button below to open the web app.', {
     reply_markup: {
