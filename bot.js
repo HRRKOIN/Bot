@@ -12,7 +12,7 @@ bot.onText(/\/start/, (msg) => {
   } else {
     url = `${process.env.URL}`
   }
-  bot.sendMessage(chatId, 'Welcome! Click the button below to open the web app.', {
+  bot.sendMessage(chatId, "Hello Welcome to LinkingJobs. LinkingJobs is building the Web3 Future of Work'—a world of shared opportunities, collective ownership, and earning potential for everyone. A unique profit-sharing project where you can earn not only tokens but also real cash. Join the community and be part of the largest airdrop in history!", {
     reply_markup: {
       inline_keyboard: [[
         { text: 'Open Web App', web_app: { url: url } }
