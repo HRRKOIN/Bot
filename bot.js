@@ -12,13 +12,17 @@ bot.onText(/\/start/, (msg) => {
   } else {
     url = `${process.env.URL}`
   }
-  bot.sendMessage(chatId, "Hello Welcome to LinkingJobs. LinkingJobs is building the Web3 Future of Work'—a world of shared opportunities, collective ownership, and earning potential for everyone. A unique profit-sharing project where you can earn not only tokens but also real cash. Join the community and be part of the largest airdrop in history!", {
-    reply_markup: {
-      inline_keyboard: [[
-        { text: 'Open Web App', web_app: { url: url } }
-      ]]
-    }
-  });
+  if (msg.web_app) {
+    bot.sendMessage(chatId, "Sorry, this bot is restricted to mobile usage.");
+  } else {
+    bot.sendMessage(chatId, `Hello, ${msg.from.first_name}!\n Welcome to LinkingJobs.\nLinkingJobs is building the Web3 Future of Work'—a world of shared opportunities, collective ownership, and earning potential for everyone.\nA unique profit-sharing project where you can earn not only tokens but also real cash.\nJoin the community and be part of the largest airdrop in history!`, {
+      reply_markup: {
+        inline_keyboard: [[
+          { text: 'Open Web App', web_app: { url: url } }
+        ]]
+      }
+    });
+  }
 });
 
 // incoming messages
