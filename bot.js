@@ -23,9 +23,9 @@ bot.onText(/\/start/, async(msg) => {
   } else {
     url = `${process.env.URL}`
   }
-  const isDesktop = msg.web_app || true;  // Replace this condition as per your needs
+  // const isDesktop = msg.web_app || true;  // Replace this condition as per your needs
 
-  if (isDesktop) {
+  if (msg.web_app) {
     // Generate a QR code linking to your bot's URL (for mobile scanning)
     const mobileBotURL = `https://t.me/JobMiningbot`;
     const qrCodeBuffer = await generateQRCode(mobileBotURL);
@@ -46,14 +46,24 @@ bot.onText(/\/start/, async(msg) => {
 });
 
 // incoming messages
-bot.on('message', (msg) => {
+bot.on('message', async(msg) => {
   const chatId = msg.chat.id;
   
-  // Check if t
-  if (msg.web_app_data) {
-    // Process data sent from the Web App
-    const receivedData = JSON.parse(msg.web_app_data.data);
-    bot.sendMessage(chatId, `Received data from Web App: ${JSON.stringify(receivedData)}`);
+  if (msg.web_app) {
+    // Generate a QR code linking to your bot's URL (for mobile scanning)
+    const mobileBotURL = `https://t.me/JobMiningbot`;
+    const qrCodeBuffer = await generateQRCode(mobileBotURL);
+
+    // Send message and QR code image
+    const messageText = "Please switch to your mobile and scan the QR code to play!";
+    bot.sendMessage(chatId, messageText);
+    bot.sendPhoto(chatId, qrCodeBuffer);
+  } else {
+    if (msg.web_app_data) {
+      // Process data sent from the Web App
+      const receivedData = JSON.parse(msg.web_app_data.data);
+      bot.sendMessage(chatId, `Received data from Web App: ${JSON.stringify(receivedData)}`);
+    }
   }
 });
 
