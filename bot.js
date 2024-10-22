@@ -1,17 +1,17 @@
 const TelegramBot = require('node-telegram-bot-api');
-const QRCode = require('qrcode');
+// const QRCode = require('qrcode');
 
 require('dotenv').config();
 const bot = new TelegramBot(process.env.TOKEN, { polling: true });
 
-async function generateQRCode(url) {
-  return new Promise((resolve, reject) => {
-    QRCode.toBuffer(url, function (err, buffer) {
-      if (err) reject(err);
-      resolve(buffer);
-    });
-  });
-}
+// async function generateQRCode(url) {
+//   return new Promise((resolve, reject) => {
+//     QRCode.toBuffer(url, function (err, buffer) {
+//       if (err) reject(err);
+//       resolve(buffer);
+//     });
+//   });
+// }
 
 // Handle /start 
 bot.onText(/\/start/, async(msg) => {
@@ -25,16 +25,16 @@ bot.onText(/\/start/, async(msg) => {
   }
   // const isDesktop = msg.web_app || true;  // Replace this condition as per your needs
 
-  if (msg.web_app) {
-    // Generate a QR code linking to your bot's URL (for mobile scanning)
-    const mobileBotURL = `https://t.me/JobMiningbot`;
-    const qrCodeBuffer = await generateQRCode(mobileBotURL);
+  // if (isDesktop) {
+  //   // Generate a QR code linking to your bot's URL (for mobile scanning)
+  //   const mobileBotURL = `https://t.me/JobMiningbot`;
+  //   const qrCodeBuffer = await generateQRCode(mobileBotURL);
 
-    // Send message and QR code image
-    const messageText = "Please switch to your mobile and scan the QR code to play!";
-    bot.sendMessage(chatId, messageText);
-    bot.sendPhoto(chatId, qrCodeBuffer);
-  } else {
+  //   // Send message and QR code image
+  //   const messageText = "Please switch to your mobile and scan the QR code to play!";
+  //   bot.sendMessage(chatId, messageText);
+  //   bot.sendPhoto(chatId, qrCodeBuffer);
+  // } else {
     bot.sendMessage(chatId, `Hello, ${msg.from.first_name}!!\n\nWelcome to LinkingJobs!!.\n\nLinkingJobs is building the Web3 Future of Work'—a world of shared opportunities, collective ownership, and earning potential for everyone.\n\nA unique profit-sharing project where you can earn not only tokens but also real cash.\n\nJoin the community and be part of the largest airdrop in history!`, {
       reply_markup: {
         inline_keyboard: [[
@@ -42,28 +42,18 @@ bot.onText(/\/start/, async(msg) => {
         ]]
       }
     });
-  }
+  // }
 });
 
 // incoming messages
-bot.on('message', async(msg) => {
+bot.on('message', (msg) => {
   const chatId = msg.chat.id;
   
-  if (msg.web_app) {
-    // Generate a QR code linking to your bot's URL (for mobile scanning)
-    const mobileBotURL = `https://t.me/JobMiningbot`;
-    const qrCodeBuffer = await generateQRCode(mobileBotURL);
-
-    // Send message and QR code image
-    const messageText = "Please switch to your mobile and scan the QR code to play!";
-    bot.sendMessage(chatId, messageText);
-    bot.sendPhoto(chatId, qrCodeBuffer);
-  } else {
-    if (msg.web_app_data) {
-      // Process data sent from the Web App
-      const receivedData = JSON.parse(msg.web_app_data.data);
-      bot.sendMessage(chatId, `Received data from Web App: ${JSON.stringify(receivedData)}`);
-    }
+  // Check if t
+  if (msg.web_app_data) {
+    // Process data sent from the Web App
+    const receivedData = JSON.parse(msg.web_app_data.data);
+    bot.sendMessage(chatId, `Received data from Web App: ${JSON.stringify(receivedData)}`);
   }
 });
 
