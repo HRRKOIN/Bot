@@ -38,7 +38,8 @@ bot.onText(/\/start/, async(msg) => {
     bot.sendMessage(chatId, `Hello, ${msg.from.first_name}!!\n\nWelcome to LinkingJobs!!.\n\nLinkingJobs is building the Web3 Future of Work'—a world of shared opportunities, collective ownership, and earning potential for everyone.\n\nA unique profit-sharing project where you can earn not only tokens but also real cash.\n\nJoin the community and be part of the largest airdrop in history!`, {
       reply_markup: {
         inline_keyboard: [[
-          { text: 'Open App', web_app: { url: url } }
+          { text: 'Open App', web_app: { url: url } },
+          { text: 'Join Community', web_app: { url: 'https://t.me/hrrkoinofficial' } }
         ]]
       }
     });
