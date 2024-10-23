@@ -39,8 +39,10 @@ bot.onText(/\/start/, async(msg) => {
       reply_markup: {
         inline_keyboard: [[
           { text: 'Open App', web_app: { url: url } },
-          { text: 'Join Community', web_app: { url: 'https://t.me/hrrkoinofficial' } }
-        ]]
+          { text: 'Join Community', url: 'https://t.me/hrrkoinofficial' }
+        ]],
+        resize_keyboard: true, // Optional: makes the keyboard smaller
+        one_time_keyboard: true // Optional: keyboard hides after pressing a button
       }
     });
   // }
@@ -51,10 +53,14 @@ bot.on('message', (msg) => {
   const chatId = msg.chat.id;
   
   // Check if t
-  if (msg.web_app_data) {
-    // Process data sent from the Web App
-    const receivedData = JSON.parse(msg.web_app_data.data);
-    bot.sendMessage(chatId, `Received data from Web App: ${JSON.stringify(receivedData)}`);
+  if (msg.text === 'Join Community') {
+    bot.sendMessage(chatId, `You pressed Button 1!`);
+  } else {
+    if (msg.web_app_data) {
+      // Process data sent from the Web App
+      const receivedData = JSON.parse(msg.web_app_data.data);
+      bot.sendMessage(chatId, `Received data from Web App: ${JSON.stringify(receivedData)}`);
+    }
   }
 });
 
